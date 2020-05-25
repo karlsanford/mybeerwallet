@@ -8,9 +8,14 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.3",
+    "@babel/runtime": "^7.9.6",
+    "@popperjs/core": "^2.4.0",
+    "bcrypt": "^4.0.1",
+    "bootstrap": "^4.5.0",
     "jquery": "^3.4.1",
-    "meteor-node-stubs": "^1.0.0"
+    "meteor-node-stubs": "^1.0.0",
+    "popper.js": "^1.16.0",
+    "svelte": "^3.22.3"
   },
   "meteor": {
     "mainModule": {
@@ -18,5 +23,8 @@
       "server": "server/main.js"
     },
     "testModule": "tests/main.js"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0"
   }
 }
