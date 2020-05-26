@@ -19,12 +19,9 @@ typescript@3.7.6              # Enable TypeScript syntax in .ts and .tsx modules
 shell-server@0.5.0            # Server-side component of the `meteor shell` command
 
 reactive-dict
-accounts-ui
 accounts-password
 meteortesting:mocha
 
-kadira:flow-router
-kadira:blaze-layout
 
 mrgalaxy:stripe
 

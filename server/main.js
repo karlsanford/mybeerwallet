@@ -8,9 +8,9 @@ Meteor.startup(() => {
   const stripe = StripeAPI(Meteor.settings.StripePri)
 
   Meteor.methods({
-    "chargeCard" : function(cardToken) {
+    "chargeCard" : function(cardToken, amount) {
       stripe.charges.create({
-          amount: 500,
+          amount,
           currency: "usd",
           source: cardToken,
           description: "bought credits from mybeerwallet.com",

@@ -36,14 +36,14 @@ Template.body.events({
         // Prevent default browser form submit
         event.preventDefault();
 
-       const cardDetails = {
+        const cardDetails = {
            number: event.target.cardNumber.value,
            exp_month: event.target.expMonth.value,
            exp_year: event.target.expYear.value,
            cvc: event.target.cvc.value
        }
 
-       Stripe.createToken(cardDetails,function(status, result){
+        Stripe.createToken(cardDetails,function(status, result){
            if(result.error){
                alert(result.error.message)
            } else {

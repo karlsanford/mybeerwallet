@@ -15,7 +15,8 @@
     "jquery": "^3.4.1",
     "meteor-node-stubs": "^1.0.0",
     "popper.js": "^1.16.0",
-    "svelte": "^3.22.3"
+    "svelte": "^3.22.3",
+    "svelte-routing": "^1.4.2"
   },
   "meteor": {
     "mainModule": {

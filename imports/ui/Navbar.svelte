@@ -1,42 +1,98 @@
+<script>
+  import { Router, Link, Route, link } from "svelte-routing";
+  import Resolutions from './Resolutions.svelte'
+  import PaymentForm from './PaymentForm.svelte'
+  import Login from './Login.svelte'
+  import Home from './Home.svelte'
+  import AccountInfo from './AccountInfo.svelte'
+  import NavLink from './NavLink.svelte'
+  import { navigate } from 'svelte-routing'
+
+  export let url = "";
+
+  let username ="no user";
+  let loggedIn = false
+
+  const userLoggedIn = () => {
+    username = Meteor.user().emails[0].address;
+    loggedIn = true
+  }
+
+  const logout = () => {
+    Meteor.logout()
+    loggedIn = false
+    navigate('/')
+  }
+  
+</script>
+
 <style>
-    h1 {
-        color: white;
-    }
+    
 </style>
 
-<nav class="navbar navbar-dark bg-dark navbar-static-top">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+<div>
+  <Router url="{url}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a href="/" class="navbar-brand">BW</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">BW</a>
-    </div>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <NavLink to='/'>Home <span class="sr-only">(current)</span></NavLink>
+          <li class="nav-item">
+            <NavLink to='/resolutions'>Resolutions</NavLink>
+          </li>
+          <li class="nav-item">
+            
+          </li>
+          <li class="nav-item">
+            <NavLink to='/payment'>Buy Credits</NavLink>
+          </li>
+        </ul>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Username <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Logout</a></li>
-            <li><a href="#">Account</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+        
+        {#if !loggedIn}
+        <form class="form-inline my-2 my-lg-0">
+            <span class="nav-item navbar-nav">
+              <NavLink to='/login' >Login</NavLink>
+            </span>
+        </form>
+        {/if}
+
+        {#if loggedIn}
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle navbar-nav" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {username}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" on:click={logout}>Logout</a>
+            <div class="dropdown-divider"></div>
+            <span  class="dropdown-item" >
+              <NavLink to="accountinfo">Account Info</NavLink>
+            </span>
+            
+          </div>
         </div>
-        <button type="submit" class="btn btn-warning">Submit</button>
-      </form>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+        {/if}
+      
+      </div>
+    </nav>
+    <div>
+      <Route path="/" component="{Home}" />
+      <Route path="login">
+        <Login on:userLoggedIn={userLoggedIn}/>
+      </Route>
+      <Route path="payment" component="{PaymentForm}" />
+      <Route path="resolutions" component="{Resolutions}" />
+      <Route path="accountinfo" component="{AccountInfo}" />
+    </div>
+  </Router>
+</div>
+
+
+
+ 
